@@ -15,3 +15,19 @@ body {
 .weather-info {
   margin-top: 20px;
 }
+.forecast-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.forecast-card {
+  background-color: #f0f8ff;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 100px;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
