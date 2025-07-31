@@ -1,4 +1,4 @@
-const apiKey = "64d3bfeaf67e517b9ba3de1a9b8f4a99"; // Replace with your API key
+const apiKey = "64d3bfeaf67e517b9ba3de1a9b8f4a99";
 
 function getWeather() {
   const city = document.getElementById("cityInput").value.trim();
@@ -91,16 +91,16 @@ function updateBackground(condition) {
   let videoFile = "clear.mp4"; // default
 
   if (condition.includes("rain")) {
-    videoFile = "rain.mp4";
+    videoFile = "rain2.mp4";
     video.muted = false;
   } else if (condition.includes("cloud")) {
-    videoFile = "clouds.mp4";
+    videoFile = "cloud2.mp4";
     video.muted = true;
   } else if (condition.includes("storm") || condition.includes("thunder")) {
-    videoFile = "storm.mp4";
+    videoFile = "Storm2.mp4";
     video.muted = true;
   } else {
-    videoFile = "clear.mp4";
+    videoFile = "Sunny2.mp4";
     video.muted = true;
   }
 
