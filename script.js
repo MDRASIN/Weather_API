@@ -4,8 +4,38 @@ function getWeather() {
   const city = document.getElementById("cityInput").value.trim();
   if (!city) {
     alert("Please enter a city name");
+  const city = document.getElementById("cityInput").value.trim();
+  if (!city) {
+    alert("Please enter a city name");
     return;
   }
+  fetchWeatherData(city);
+}
+
+function getWeatherByLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const geoUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+      fetch(geoUrl)
+        .then(res => res.json())
+        .then(data => {
+          const city = data.name;
+          fetchWeatherData(city);
+        })
+        .catch(() => alert("Failed to get location weather"));
+    }, () => {
+      alert("Location access denied");
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function fetchWeatherData(city) {
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
   fetchWeatherData(city);
 }
 
@@ -57,54 +87,37 @@ function displayWeather(data) {
         <p>🔵 Pressure: ${data.main.pressure} hPa</p>
         <p>🌬️ Wind: ${data.wind.speed} m/s</p>
         <p>☁️ Condition: ${data.weather[0].description}</p>
-  `;
-}
+      `;
+      document.getElementById("weatherInfo").innerHTML = weatherInfo;
+    });
 
-function displayForecast(data) {
-  const forecastDiv = document.getElementById("forecast");
-  forecastDiv.innerHTML = "";
+  // Fetch 5-day forecast
+  fetch(forecastUrl)
+    .then(response => response.json())
+    .then(data => {
+      const forecastContainer = document.getElementById("forecast");
+      forecastContainer.innerHTML = "";
 
-  const filtered = {};
-  data.list.forEach(item => {
-    const date = item.dt_txt.split(" ")[0];
-    if (!filtered[date] && Object.keys(filtered).length < 5) {
-      filtered[date] = item;
-    }
-  });
+      // Filter to get 1 forecast per day (around 12:00 PM)
+      const filtered = data.list.filter(item => item.dt_txt.includes("12:00:00"));
 
-  Object.values(filtered).forEach(day => {
-    const date = new Date(day.dt_txt).toDateString();
-    forecastDiv.innerHTML += `
-      <div class="forecast-card">
-        <h4>${date}</h4>
-        <p>${day.weather[0].main}</p>
-        <p>${day.main.temp}°C</p>
-      </div>
-    `;
-  });
-}
+      filtered.forEach(day => {
+        const date = new Date(day.dt_txt);
+        const dayName = date.toLocaleDateString("en-US", { weekday: "short" });
+        const temp = day.main.temp;
+        const icon = day.weather[0].icon;
+        const description = day.weather[0].main;
 
-function updateBackground(condition) {
-  const video = document.getElementById("bgVideo");
-  const source = document.getElementById("bgSource");
+        const card = `
+          <div class="forecast-card">
+            <p>${dayName}</p>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}">
+            <p>${temp.toFixed(1)}°C</p>
+            <p>${description}</p>
+          </div>
+        `;
 
-  let videoFile = "clear.mp4"; // default
-
-  if (condition.includes("rain")) {
-    videoFile = "rain.m4v";
-    video.muted = false;
-  } else if (condition.includes("cloud")) {
-    videoFile = "clouds.mp4";
-    video.muted = false;
-  } else if (condition.includes("storm") || condition.includes("thunder")) {
-    videoFile = "storm.mp4";
-    video.muted = false;
-  } else {
-    videoFile = "clearr.mp4";
-    video.muted = false;
-  }
-
-  source.src = videoFile;
-  video.load();
-  video.hidden = false;
+        forecastContainer.innerHTML += card;
+      });
+    });
 }

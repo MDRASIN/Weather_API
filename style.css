@@ -36,7 +36,11 @@ body {
 input[type="text"] {
   padding: 10px;
   width: 70%;
+<<<<<<< HEAD
   border: solid black;
+=======
+  border: none;
+>>>>>>> c1e5e4c4ba272efc60bd1e7fa4ea932c96573c63
   border-radius: 5px;
   margin-bottom: 10px;
   outline: none;
