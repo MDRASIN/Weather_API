@@ -2,27 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Weather Monitor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Background Video -->
   <video id="bgVideo" autoplay loop muted hidden>
     <source id="bgSource" src="" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <div class="container">
+  <div class="container" id="cont">
     <h1>🌦️ Weather Monitor</h1>
+    <div class="input-group">
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <div class="button-group">
+        <button onclick="getWeather()">Get Weather</button>
+        <button onclick="getWeatherByLocation()">Use My Location</button>
+      </div>
+    </div>
 
-    <input type="text" id="cityInput" placeholder="Enter city name" />
-    <button onclick="getWeather()">Get Weather</button>
-    <button onclick="getWeatherByLocation()">Use My Location</button>
+    <div id="weatherInfo"></div>
+    <h3 id="forecastTitle" style="display: none;">5-Day Forecast</h3>
+    <div id="forecast" class="forecast-container"></div>
 
-    <div class="weather-info" id="weatherInfo"></div>
-
-    <h3>5-Day Forecast</h3>
-    <div id="forecast"></div>
+    <canvas id="tempChart" width="600" height="300"></canvas>
   </div>
 
   <script src="script.js"></script>

@@ -1,101 +1,109 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
   margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right top, #1950dc, #e7f0ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  
 }
 
-/* Background video styles */
 #bgVideo {
   position: fixed;
-  top: 0;
-  left: 0;
+  right: 0;
+  bottom: 0;
   min-width: 100%;
   min-height: 100%;
   z-index: -1;
   object-fit: cover;
 }
 
-/* Weather container */
 .container {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 40px 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  max-width: 480px;
-  margin: 100px auto;
-  color: #000;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 800px;
+  height: 200px;
+  width: 95%;
+  color: #333;
+  text-align: center;
 }
 
-/* Input and button styles */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
 input[type="text"] {
-  padding: 10px;
-  width: 70%;
+  padding: 0.7rem;
+  width: 60%;
   border: none;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  outline: none;
-  font-size: 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.button-group {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 button {
-  padding: 10px 16px;
-  margin: 5px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 5px;
-  background-color: #3498db;
+  border-radius: 12px;
+  background-color: #007bff;
   color: white;
-  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #0056b3;
 }
 
-/* Weather info section */
-.weather-info {
-  margin-top: 20px;
-  font-size: 18px;
-  line-height: 1.6;
+#weatherInfo {
+  margin-top: 1rem;
+  font-size: 1.1rem;
 }
 
-/* Forecast styles */
-#forecast {
+#forecastTitle {
+  margin-top: 2rem;
+}
+
+.forecast-container {
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 
 .forecast-card {
-  background: rgba(255, 255, 255, 0.8);
-  color: #000;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 15px;
-  width: 130px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.5rem;
+  width: 110px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.forecast-card:hover {
-  transform: scale(1.05);
+.forecast-card img {
+  width: 50px;
+  height: 50px;
 }
 
-.forecast-card h4 {
-  margin: 0 0 10px;
-  font-size: 16px;
-  color: #333;
-}
-
-.forecast-card p {
-  margin: 5px 0;
-  font-size: 14px;
+canvas#tempChart {
+  margin-top: 2rem;
 }
